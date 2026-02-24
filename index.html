@@ -1195,6 +1195,7 @@
         </div>
     </div>
 
+    <script src="config.js"></script>
     <script>
         // Cursor
         const cursor = document.querySelector('.cursor');
@@ -1558,8 +1559,8 @@
 
         // GitHub Gist config
         const GIST_CONFIG = {
-            token: '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',
-            gistId: null, // Будет создан автоматически
+            token: typeof GITHUB_TOKEN !== 'undefined' ? GITHUB_TOKEN : '',
+            gistId: null,
             filename: 'wall-messages.json'
         };
 
