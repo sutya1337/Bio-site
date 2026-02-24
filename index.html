@@ -962,52 +962,49 @@
 
         function playAbyssAnimation() {
             const frames = [
-                `
-     ▒▒▒▒▒
-    ▒░░░▒
-   ▒░▒▒░▒
-   ▒░▒▒░▒
-    ▒░░▒
-     ▒▒▒
+`
+  ╭◜◝╮
+  │ ◡ │
+  ╰◟◞╯
+   ││
+  ╱││╲
 `,
-                `
-     ▒▒▒▒▒
-    ▒░░░▒
-   ▒░▒▒░▒
-   ▒░▒▒░▒
-    ▒░░▒
-     ▒▒
-    ▒
+`
+  ╭◜◝╮
+  │ ◡ │
+  ╰◟◞╯
+   ││
+  ╱│ ╲
 `,
-                `
-     ▒▒▒▒▒
-    ▒░░░▒
-   ▒░▒▒░▒
-   ▒░▒▒░▒
-    ▒░░▒
-     ▒▒▒
+`
+  ╭◜◝╮
+  │ ◡ │
+  ╰◟◞╯
+   ││
+  ╱││╲
 `,
-                `
-     ▒▒▒▒▒
-    ▒░░░▒
-   ▒░▒▒░▒
-   ▒░▒▒░▒
-    ▒░░▒
-      ▒▒
-      ▒
+`
+  ╭◜◝╮
+  │ ◡ │
+  ╰◟◞╯
+   ││
+  ╱ │ ╲
 `
             ];
             
             let frame = 0;
+            let count = 0;
             const interval = setInterval(() => {
-                logToConsole('info', '<pre>' + frames[frame] + '</pre>');
+                consoleOutput.innerHTML = '<div class="console-line info"><pre>' + frames[frame] + '</pre></div>';
                 frame = (frame + 1) % frames.length;
+                count++;
                 
-                if (frame === 0) {
+                if (count > 8) {
                     clearInterval(interval);
+                    consoleOutput.innerHTML = '';
                     logToConsole('warning', 'The Abyss gazes also into you...');
                 }
-            }, 300);
+            }, 200);
         }
 
         // Welcome message in real console
