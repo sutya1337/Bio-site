@@ -754,12 +754,8 @@
     </div>
 
     <script>
-        // CONFIG - вставь свои данные перед загрузкой
-        const GITHUB_CONFIG = {
-            owner: 'sutya1337',
-            repo: 'Bio-site',
-            token: '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'
-        };
+        // Vercel API URL (замени после деплоя)
+        const API_URL = '/api/send';
     </script>
     <script>
         // Cursor
@@ -870,47 +866,29 @@
                 return;
             }
 
-            // Show loading status
+            // Show loading
             showStatus('loading', '⏳ Sending...');
             submitBtn.disabled = true;
 
-            // Prepare issue data
-            const issueData = {
-                title: `Message from ${name} - ${new Date().toLocaleDateString('en-US')}`,
-                body: `**Name:** ${name}\n\n**Contact:** ${contact}\n\n**Message:**\n\n${message}\n\n---\n*Sent from website*`,
-                labels: ['message', 'from-site']
-            };
-
             try {
-                // Check config
-                if (GITHUB_CONFIG.owner === 'YOUR_USERNAME' || GITHUB_CONFIG.token === 'YOUR_GITHUB_TOKEN') {
-                    throw new Error('GITHUB_CONFIG not set up in code');
-                }
-
-                // Send request to GitHub API
-                const response = await fetch(`https://api.github.com/repos/${GITHUB_CONFIG.owner}/${GITHUB_CONFIG.repo}/issues`, {
+                const res = await fetch(API_URL, {
                     method: 'POST',
-                    headers: {
-                        'Authorization': `token ${GITHUB_CONFIG.token}`,
-                        'Content-Type': 'application/json',
-                        'Accept': 'application/vnd.github.v3+json'
-                    },
-                    body: JSON.stringify(issueData)
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ name, contact, message })
                 });
 
-                if (response.ok) {
-                    const result = await response.json();
-                    showStatus('success', `✅ Sent successfully!<br><small>Issue #${result.number}</small>`);
+                const data = await res.json();
+
+                if (res.ok && data.success) {
+                    showStatus('success', '✅ Sent successfully!');
                     contactForm.reset();
-                    
                     setTimeout(() => hideStatus(), 5000);
                 } else {
-                    const error = await response.json();
-                    throw new Error(error.message || 'GitHub API error');
+                    throw new Error(data.error || 'Send error');
                 }
             } catch (error) {
-                console.error('Form submission error:', error);
-                showStatus('error', `❌ Error: ${error.message}`);
+                console.error(error);
+                showStatus('error', '❌ Error: ' + error.message);
                 setTimeout(() => hideStatus(), 5000);
             } finally {
                 submitBtn.disabled = false;
