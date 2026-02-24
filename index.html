@@ -961,50 +961,36 @@
         }
 
         function playAbyssAnimation() {
-            const frames = [
-`
-  ╭◜◝╮
-  │ ◡ │
-  ╰◟◞╯
-   ││
-  ╱││╲
-`,
-`
-  ╭◜◝╮
-  │ ◡ │
-  ╰◟◞╯
-   ││
-  ╱│ ╲
-`,
-`
-  ╭◜◝╮
-  │ ◡ │
-  ╰◟◞╯
-   ││
-  ╱││╲
-`,
-`
-  ╭◜◝╮
-  │ ◡ │
-  ╰◟◞╯
-   ││
-  ╱ │ ╲
-`
-            ];
+            // Create image element
+            const imgContainer = document.createElement('div');
+            imgContainer.className = 'console-line info';
+            imgContainer.style.textAlign = 'center';
             
-            let frame = 0;
-            let count = 0;
-            const interval = setInterval(() => {
-                consoleOutput.innerHTML = '<div class="console-line info"><pre>' + frames[frame] + '</pre></div>';
-                frame = (frame + 1) % frames.length;
-                count++;
-                
-                if (count > 8) {
-                    clearInterval(interval);
-                    consoleOutput.innerHTML = '';
-                    logToConsole('warning', 'The Abyss gazes also into you...');
-                }
-            }, 200);
+            const img = document.createElement('img');
+            img.src = 'image/abyss.jpg';
+            img.style.maxWidth = '300px';
+            img.style.maxHeight = '200px';
+            img.style.borderRadius = '10px';
+            img.style.border = '1px solid rgba(255,255,255,0.3)';
+            img.style.transition = 'all 1s ease';
+            img.style.opacity = '1';
+            img.style.transform = 'scale(1)';
+            
+            imgContainer.appendChild(img);
+            consoleOutput.innerHTML = '';
+            consoleOutput.appendChild(imgContainer);
+            
+            // Shrink animation
+            setTimeout(() => {
+                img.style.opacity = '0';
+                img.style.transform = 'scale(0)';
+            }, 100);
+            
+            // Remove after animation
+            setTimeout(() => {
+                consoleOutput.innerHTML = '';
+                logToConsole('success', 'Nanachi: "Welcome to the Abyss!"');
+            }, 1200);
         }
 
         // Welcome message in real console
