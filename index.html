@@ -492,136 +492,115 @@
             z-index: -1;
         }
 
-        /* === CONTACT FORM === */
-        .contact-form-container {
-            max-width: 500px;
+        /* === INFO SECTION === */
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
             width: 100%;
             margin-top: 2rem;
         }
 
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
+        .info-item {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 1.5rem;
+            border-radius: 8px;
+            transition: all 0.3s ease;
         }
 
-        .form-group {
-            display: flex;
-            flex-direction: column;
-            gap: 0.5rem;
+        .info-item:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            background: rgba(255, 255, 255, 0.05);
+            transform: translateY(-5px);
         }
 
-        .form-group label {
-            font-size: 0.8rem;
-            opacity: 0.7;
+        .info-label {
+            font-size: 0.7rem;
+            opacity: 0.5;
             text-transform: uppercase;
             letter-spacing: 0.1rem;
+            margin-bottom: 0.5rem;
         }
 
-        .form-group input,
-        .form-group textarea {
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 1rem;
-            font-family: inherit;
-            font-size: 1rem;
-            border-radius: 5px;
-            outline: none;
-            transition: all 0.3s ease;
-            cursor: none;
+        .info-value {
+            font-size: 1.2rem;
+            font-weight: bold;
         }
 
-        .form-group input:focus,
-        .form-group textarea:focus {
-            border-color: rgba(255, 255, 255, 0.5);
-            background: rgba(255, 255, 255, 0.08);
+        .info-story {
+            max-width: 800px;
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 10px;
+            line-height: 1.8;
+            opacity: 0.8;
         }
 
-        .form-group textarea {
-            min-height: 150px;
-            resize: vertical;
+        /* === ANIME SECTION === */
+        .anime-gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            max-width: 1200px;
+            width: 100%;
+            margin-top: 2rem;
         }
 
-        .form-group input::placeholder,
-        .form-group textarea::placeholder {
-            opacity: 0.3;
-        }
-
-        .submit-btn {
-            background: transparent;
-            border: 2px solid rgba(255, 255, 255, 0.3);
-            color: #fff;
-            padding: 1rem 2rem;
-            font-family: inherit;
-            font-size: 1rem;
-            text-transform: uppercase;
-            letter-spacing: 0.2rem;
-            cursor: none;
-            transition: all 0.3s ease;
-            border-radius: 5px;
+        .anime-frame {
             position: relative;
             overflow: hidden;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            aspect-ratio: 16/9;
+            background: #111;
         }
 
-        .submit-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
+        .anime-frame img {
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
-            transition: left 0.5s ease;
+            object-fit: cover;
+            filter: grayscale(100%) contrast(1.2);
+            transition: all 0.5s ease;
         }
 
-        .submit-btn:hover::before {
-            left: 100%;
+        .anime-frame:hover img {
+            filter: grayscale(0%) contrast(1);
+            transform: scale(1.05);
         }
 
-        .submit-btn:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(255, 255, 255, 0.5);
-        }
-
-        .submit-btn:active {
-            transform: scale(0.98);
-        }
-
-        .submit-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Form status */
-        .form-status {
-            margin-top: 1rem;
+        .anime-frame::after {
+            content: 'Made in Abyss';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
             padding: 1rem;
-            border-radius: 5px;
-            font-size: 0.9rem;
-            display: none;
+            background: linear-gradient(transparent, rgba(0,0,0,0.8));
+            font-size: 0.8rem;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .anime-frame:hover::after {
+            opacity: 1;
+        }
+
+        .anime-title {
+            font-size: 2rem;
+            margin-bottom: 1rem;
             text-align: center;
         }
 
-        .form-status.success {
-            display: block;
-            background: rgba(81, 207, 102, 0.1);
-            border: 1px solid rgba(81, 207, 102, 0.3);
-            color: #51cf66;
-        }
-
-        .form-status.error {
-            display: block;
-            background: rgba(255, 107, 107, 0.1);
-            border: 1px solid rgba(255, 107, 107, 0.3);
-            color: #ff6b6b;
-        }
-
-        .form-status.loading {
-            display: block;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            color: rgba(255, 255, 255, 0.7);
+        .anime-quote {
+            max-width: 600px;
+            text-align: center;
+            font-style: italic;
+            opacity: 0.6;
+            margin-top: 2rem;
+            line-height: 1.8;
         }
     </style>
 </head>
@@ -634,17 +613,12 @@
     <div class="progress-bar" id="progressBar"></div>
 
     <!-- === BACKGROUND ANIMATIONS === -->
-    <!-- 1. Grid -->
     <div class="grid-bg"></div>
-    
-    <!-- 2. Floating orbs -->
     <div class="orbs-container">
         <div class="orb"></div>
         <div class="orb"></div>
         <div class="orb"></div>
     </div>
-    
-    <!-- 3. Scanlines + twinkles -->
     <div class="scanlines"></div>
     <div class="twinkles" id="twinkles"></div>
 
@@ -654,14 +628,13 @@
 
     <!-- Section 1: Home -->
     <section id="home" class="container">
-        <!-- Time and nav only on first section -->
         <div class="top-bar">
             <div class="time-on-site" id="timeOnSite">00:00:00</div>
             <nav>
                 <ul>
                     <li><a href="#home">Home</a></li>
                     <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
+                    <li><a href="#anime">Anime</a></li>
                 </ul>
             </nav>
         </div>
@@ -671,7 +644,7 @@
         
         <div class="hero">
             <div class="glitch-wrapper">
-                <div class="glitch" data-text="YOUR NAME">YOUR NAME</div>
+                <div class="glitch" data-text="SUTYA">SUTYA</div>
             </div>
             <p>Welcome to my digital world</p>
         </div>
@@ -679,84 +652,111 @@
         <div class="cards">
             <div class="card" style="animation-delay: 0.2s;">
                 <h3>Who I Am</h3>
-                <p>Information about you goes here.</p>
+                <p>A vibe coder living in the abyss of code.</p>
             </div>
             <div class="card" style="animation-delay: 0.4s;">
                 <h3>What I Do</h3>
-                <p>Describe your work or projects.</p>
+                <p>Creating things at 3 AM with pure energy.</p>
             </div>
             <div class="card" style="animation-delay: 0.6s;">
-                <h3>Contact</h3>
-                <p>Your contact information here.</p>
+                <h3>Connect</h3>
+                <p>Discord: Sutya1337</p>
             </div>
         </div>
     </section>
 
-    <!-- Section 2: About -->
+    <!-- Section 2: About / Info -->
     <section id="about">
         <h2 class="glitch" data-text="ABOUT ME" style="font-size: 3rem; margin-bottom: 2rem;">ABOUT ME</h2>
-        <p style="max-width: 600px; text-align: center; line-height: 1.8; opacity: 0.8;">
-            This section is waiting for your content. Tell your story here.
-        </p>
+        
+        <div class="info-grid">
+            <div class="info-item">
+                <div class="info-label">Name</div>
+                <div class="info-value">Sutya</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Age</div>
+                <div class="info-value">⁇</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Purpose</div>
+                <div class="info-value">vibe coding ✌️</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Discord</div>
+                <div class="info-value">Sutya1337</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">My Sweet</div>
+                <div class="info-value">@olikmerl</div>
+            </div>
+            <div class="info-item">
+                <div class="info-label">Cup Size</div>
+                <div class="info-value">Classified 🤫</div>
+            </div>
+        </div>
+
+        <div class="info-story">
+            <p>
+                I'm sitting in the department and writing how it all happened. 
+                Late nights, endless cups of coffee, and the glow of the screen 
+                became my world. Every line of code is a step deeper into the abyss, 
+                where bugs hide and dreams are compiled.
+            </p>
+            <br>
+            <p>
+                This is not just a bio page — it's a glimpse into my digital soul.
+            </p>
+        </div>
     </section>
 
-    <!-- Section 3: Contact with form -->
-    <section id="contact">
-        <h2 class="glitch" data-text="CONTACT" style="font-size: 3rem; margin-bottom: 2rem;">CONTACT</h2>
-        <p style="opacity: 0.8; margin-bottom: 1rem;">Have a question or proposal? Write to me</p>
+    <!-- Section 3: Best Anime -->
+    <section id="anime">
+        <h2 class="glitch anime-title" data-text="BEST ANIME">BEST ANIME</h2>
+        <p style="opacity: 0.7;">Made in Abyss — a journey into the unknown</p>
 
-        <!-- Contact form -->
-        <div class="contact-form-container">
-            <form class="contact-form" id="contactForm">
-                <div class="form-group">
-                    <label for="name">Name</label>
-                    <input type="text" id="name" name="name" placeholder="Anonymous (leave empty)">
-                </div>
-
-                <div class="form-group">
-                    <label for="contact">Contact</label>
-                    <input type="text" id="contact" name="contact" placeholder="Telegram / Email / Other" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" placeholder="Your question or proposal..." required></textarea>
-                </div>
-
-                <button type="submit" class="submit-btn" id="submitBtn">
-                    Send
-                </button>
-            </form>
-
-            <div class="form-status" id="formStatus"></div>
+        <div class="anime-gallery">
+            <!-- Made in Abyss frames -->
+            <div class="anime-frame">
+                <img src="https://w.wallhaven.cc/full/wq/wallhaven-wqvepx.jpg" alt="Made in Abyss Scene 1">
+            </div>
+            <div class="anime-frame">
+                <img src="https://w.wallhaven.cc/full/yz/wallhaven-yz3x5e.jpg" alt="Made in Abyss Scene 2">
+            </div>
+            <div class="anime-frame">
+                <img src="https://w.wallhaven.cc/full/k1/wallhaven-k1m6d3.jpg" alt="Made in Abyss Scene 3">
+            </div>
+            <div class="anime-frame">
+                <img src="https://w.wallhaven.cc/full/vg/wallhaven-vg8p8r.jpg" alt="Made in Abyss Scene 4">
+            </div>
+            <div class="anime-frame">
+                <img src="https://w.wallhaven.cc/full/ex/wallhaven-ex3q3x.jpg" alt="Made in Abyss Scene 5">
+            </div>
+            <div class="anime-frame">
+                <img src="https://w.wallhaven.cc/full/qz/wallhaven-qz8g5m.jpg" alt="Made in Abyss Scene 6">
+            </div>
         </div>
-        
-        <!-- Bottom spacer -->
+
+        <div class="anime-quote">
+            "The Abyss is a living entity. It tests those who dare to descend, 
+            rewarding the brave and punishing the foolish."
+        </div>
+
         <div class="spacer"></div>
     </section>
 
     <!-- Infinite banner -->
     <div class="bottom-banner">
         <div class="banner-content">
-            <span class="banner-item">★ BIO PAGE</span>
-            <span class="banner-item">★ YOUR NAME</span>
-            <span class="banner-item">★ WELCOME</span>
-            <span class="banner-item">★ BIO PAGE</span>
-            <span class="banner-item">★ YOUR NAME</span>
-            <span class="banner-item">★ WELCOME</span>
-            <span class="banner-item">★ BIO PAGE</span>
-            <span class="banner-item">★ YOUR NAME</span>
-            <span class="banner-item">★ WELCOME</span>
-            <span class="banner-item">★ BIO PAGE</span>
-            <span class="banner-item">★ YOUR NAME</span>
-            <span class="banner-item">★ WELCOME</span>
+            <span class="banner-item">★ SUTYA</span>
+            <span class="banner-item">★ VIBE CODING</span>
+            <span class="banner-item">★ MADE IN ABYSS</span>
+            <span class="banner-item">★ SUTYA</span>
+            <span class="banner-item">★ VIBE CODING</span>
+            <span class="banner-item">★ MADE IN ABYSS</span>
         </div>
-    </div>
+    </section>
 
-    <script>
-        // Vercel API URL
-        const API_URL = 'https://bio-site-ashen.vercel.app/api/send';
-    </script>
     <script>
         // Cursor
         const cursor = document.querySelector('.cursor');
@@ -836,74 +836,6 @@
             document.getElementById('circle1').style.transform = `translateY(${scrolled * 0.05}px)`;
             document.getElementById('circle2').style.transform = `translateY(${-scrolled * 0.08}px)`;
         });
-
-        // === CONTACT FORM ===
-        const contactForm = document.getElementById('contactForm');
-        const formStatus = document.getElementById('formStatus');
-        const submitBtn = document.getElementById('submitBtn');
-
-        contactForm.addEventListener('submit', async (e) => {
-            e.preventDefault();
-
-            const nameInput = document.getElementById('name');
-            const contactInput = document.getElementById('contact');
-            const messageInput = document.getElementById('message');
-
-            const name = nameInput.value.trim() || 'Anonymous';
-            const contact = contactInput.value.trim();
-            const message = messageInput.value.trim();
-
-            // Validation
-            if (contact.length < 2) {
-                showStatus('error', '❌ Please enter a valid contact');
-                contactInput.focus();
-                return;
-            }
-
-            if (message.length < 5) {
-                showStatus('error', '❌ Message too short (min 5 characters)');
-                messageInput.focus();
-                return;
-            }
-
-            // Show loading
-            showStatus('loading', '⏳ Sending...');
-            submitBtn.disabled = true;
-
-            try {
-                const res = await fetch(API_URL, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ name, contact, message })
-                });
-
-                const data = await res.json();
-
-                if (res.ok && data.success) {
-                    showStatus('success', '✅ Sent successfully!');
-                    contactForm.reset();
-                    setTimeout(() => hideStatus(), 5000);
-                } else {
-                    throw new Error(data.error || 'Send error');
-                }
-            } catch (error) {
-                console.error(error);
-                showStatus('error', '❌ Error: ' + error.message);
-                setTimeout(() => hideStatus(), 5000);
-            } finally {
-                submitBtn.disabled = false;
-            }
-        });
-
-        function showStatus(type, message) {
-            formStatus.className = `form-status ${type}`;
-            formStatus.innerHTML = message;
-        }
-
-        function hideStatus() {
-            formStatus.className = 'form-status';
-            formStatus.textContent = '';
-        }
     </script>
 </body>
 </html>
