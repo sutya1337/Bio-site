@@ -754,6 +754,14 @@
     </div>
 
     <script>
+        // CONFIG - вставь свои данные перед загрузкой
+        const GITHUB_CONFIG = {
+            owner: 'sutya1337',
+            repo: 'Bio-site',
+            token: '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'
+        };
+    </script>
+    <script>
         // Cursor
         const cursor = document.querySelector('.cursor');
         const cursorDot = document.querySelector('.cursor-dot');
@@ -837,13 +845,6 @@
         const contactForm = document.getElementById('contactForm');
         const formStatus = document.getElementById('formStatus');
         const submitBtn = document.getElementById('submitBtn');
-
-        // CONFIG
-        const GITHUB_CONFIG = {
-            owner: 'sutya1337',
-            repo: 'Bio-site',
-            token: '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'
-        };
 
         contactForm.addEventListener('submit', async (e) => {
             e.preventDefault();
