@@ -449,6 +449,58 @@
             z-index: 100;
         }
 
+        /* Secret Console */
+        .secret-console {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 200px;
+            background: rgba(0, 0, 0, 0.95);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.8rem;
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .secret-console.open {
+            transform: translateY(0);
+        }
+
+        .console-line {
+            margin-bottom: 0.3rem;
+            opacity: 0.8;
+        }
+
+        .console-line.error { color: #ff6b6b; }
+        .console-line.success { color: #51cf66; }
+        .console-line.warning { color: #ffd43b; }
+        .console-line.info { color: #fff; }
+
+        .console-input {
+            display: flex;
+            margin-top: 0.5rem;
+        }
+
+        .console-input span {
+            margin-right: 0.5rem;
+            opacity: 0.5;
+        }
+
+        .console-input input {
+            background: transparent;
+            border: none;
+            color: #fff;
+            font-family: inherit;
+            font-size: inherit;
+            flex: 1;
+            outline: none;
+        }
+
         .banner-content {
             display: flex;
             animation: bannerScroll 10s linear infinite;
@@ -757,6 +809,17 @@
         </div>
     </section>
 
+    <!-- Secret Console -->
+    <div class="secret-console" id="secretConsole">
+        <div class="console-line">Secret Console v1.0</div>
+        <div class="console-line warning">Type 'help' for commands</div>
+        <div id="consoleOutput"></div>
+        <div class="console-input">
+            <span>></span>
+            <input type="text" id="consoleInput" placeholder="type command...">
+        </div>
+    </div>
+
     <script>
         // Cursor
         const cursor = document.querySelector('.cursor');
@@ -836,6 +899,121 @@
             document.getElementById('circle1').style.transform = `translateY(${scrolled * 0.05}px)`;
             document.getElementById('circle2').style.transform = `translateY(${-scrolled * 0.08}px)`;
         });
+
+        // === SECRET CONSOLE ===
+        const secretConsole = document.getElementById('secretConsole');
+        const consoleInput = document.getElementById('consoleInput');
+        const consoleOutput = document.getElementById('consoleOutput');
+
+        // Open console with ` key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === '`') {
+                secretConsole.classList.toggle('open');
+                consoleInput.focus();
+            }
+        });
+
+        // Console input handler
+        consoleInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = consoleInput.value.trim().toLowerCase();
+                processCommand(command);
+                consoleInput.value = '';
+            }
+        });
+
+        function logToConsole(type, message) {
+            const line = document.createElement('div');
+            line.className = `console-line ${type}`;
+            line.textContent = `[${type.toUpperCase()}] ${message}`;
+            consoleOutput.appendChild(line);
+            secretConsole.scrollTop = secretConsole.scrollHeight;
+        }
+
+        function processCommand(command) {
+            logToConsole('info', `> ${command}`);
+            
+            switch(command) {
+                case 'help':
+                    logToConsole('info', 'Commands: help, clear, time, visit, easter, sutya, abyss');
+                    break;
+                case 'clear':
+                    consoleOutput.innerHTML = '';
+                    break;
+                case 'time':
+                    logToConsole('info', `Time on site: ${document.getElementById('timeOnSite').textContent}`);
+                    break;
+                case 'visit':
+                    logToConsole('info', 'You are visitor #1 (or more)');
+                    break;
+                case 'easter':
+                    logToConsole('success', '🐣 You found the easter egg!');
+                    break;
+                case 'sutya':
+                    logToConsole('success', '✌️ Vibe coding forever');
+                    break;
+                case 'abyss':
+                    playAbyssAnimation();
+                    break;
+                default:
+                    logToConsole('error', `Command not found: ${command}`);
+            }
+        }
+
+        function playAbyssAnimation() {
+            const frames = [
+                `
+     ▒▒▒▒▒
+    ▒░░░▒
+   ▒░▒▒░▒
+   ▒░▒▒░▒
+    ▒░░▒
+     ▒▒▒
+`,
+                `
+     ▒▒▒▒▒
+    ▒░░░▒
+   ▒░▒▒░▒
+   ▒░▒▒░▒
+    ▒░░▒
+     ▒▒
+    ▒
+`,
+                `
+     ▒▒▒▒▒
+    ▒░░░▒
+   ▒░▒▒░▒
+   ▒░▒▒░▒
+    ▒░░▒
+     ▒▒▒
+`,
+                `
+     ▒▒▒▒▒
+    ▒░░░▒
+   ▒░▒▒░▒
+   ▒░▒▒░▒
+    ▒░░▒
+      ▒▒
+      ▒
+`
+            ];
+            
+            let frame = 0;
+            const interval = setInterval(() => {
+                logToConsole('info', '<pre>' + frames[frame] + '</pre>');
+                frame = (frame + 1) % frames.length;
+                
+                if (frame === 0) {
+                    clearInterval(interval);
+                    logToConsole('warning', 'The Abyss gazes also into you...');
+                }
+            }, 300);
+        }
+
+        // Welcome message in real console
+        console.log('%c👋 Hey!', 'font-size: 20px; color: #fff;');
+        console.log('%cIf you are here, you are a real developer!', 'font-size: 12px; color: #888;');
+        console.log('%cPress ` for secret console', 'font-size: 12px; color: #888;');
     </script>
 </body>
 </html>
